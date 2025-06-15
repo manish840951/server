@@ -8,7 +8,6 @@ const courseSchema = new mongoose.Schema({
     {
       title: String,
       filename: String, // GridFS filename
-      // Optionally: _id, description, duration, etc.
     }
   ]
 });
