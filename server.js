@@ -35,11 +35,12 @@ conn.once('open', () => {
 
 // ====== Middleware ======
 
-// --- CORS  ---
 app.use(cors({
   origin: "https://localhost:3000",
   credentials: true,
-  optionsSuccessStatus: 204
+  optionsSuccessStatus: 204,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // --- Body Parsers ---
@@ -58,6 +59,12 @@ app.use(auth({
     response_type: 'code'
   }
 }));
+
+// Add this before your routes
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
 
 // ====== Routes ======
 app.use('/api/progress', progressRoutes);
